@@ -2,7 +2,7 @@ import React from 'react';
 
 const SaleCard = ({ item }) => {
   return (
-    <div className="relative w-72 h-auto border border-gray-200 rounded-lg shadow-md overflow-hidden group mx-2"> {/* Increased size and added horizontal margin */}
+    <div className="relative w-72 mt-28 h-auto border border-gray-200 rounded-lg shadow-md overflow-hidden group mx-2"> {/* Increased size and added horizontal margin */}
       <a href="#">
         <img
           className="p-4 rounded-t-lg h-32 object-cover"

@@ -54,37 +54,30 @@ const initializeDatabase = async (req,res) => {
 };
 
 
+
 const getSalesByMonth = async (req, res) => {
-
-
-  const { month } = req.params;
-  const monthMap = {
-    january: 0, february: 1, march: 2, april: 3, may: 4, june: 5,
-    july: 6, august: 7, september: 8, october: 9, november: 10, december: 11,
-  };
-
-
-
-  const monthIndex = monthMap[month.toLowerCase()];
-  if (monthIndex === undefined) {
-    return res.status(400).json({ message: 'Invalid month' });
-  }
-  
-
-   
-
+  const { month } = req.params; 
   try {
-    const sales = await Sale.find({
-      dateOfSale: {
-        $gte: new Date(new Date().getFullYear(), monthIndex, 1),
-        $lt: new Date(new Date().getFullYear(), monthIndex + 1, 1),
-      },
-    });
-    console.log(sales)
-    res.status(200).json(sales);
+      const monthIndex = new Date(Date.parse(month + " 1, 2024")).getMonth();
+
+      const sales = await Sale.aggregate([
+          {
+              $match: {
+                  $expr: { $eq: [{ $month: "$dateOfSale" }, monthIndex + 1] }  
+              }
+          }
+      ]);
+
+      if (sales.length === 0) {
+          return res.status(404).json({ message: "No sales found for the specified month." });
+      }
+
+      res.status(200).json(sales);
   } catch (error) {
-    res.status(500).json({ message: 'Error fetching sales data.', error });
+      console.error(error);
+      res.status(500).json({ message: 'Failed to fetch sales data', error });
   }
 };
+
 
 module.exports = {getData, initializeDatabase, getSalesByMonth };
