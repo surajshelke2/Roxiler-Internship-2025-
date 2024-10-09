@@ -33,7 +33,7 @@ const initializeDatabase = async (req, res) => {
       dateOfSale: new Date(item.dateOfSale),
       image: item.image,
       category: item.category,
-      description: item.description,
+      description:item.description,
       sold: item.sold,
       price: item.price,
     }));
@@ -42,6 +42,7 @@ const initializeDatabase = async (req, res) => {
     await Sale.insertMany(sales);
 
     console.log("Database initialized successfully with sales data!");
+    console.log(sales)
     res.status(200).json(sales);
   } catch (error) {
     console.error("Failed to fetch or initialize database:", error.message);

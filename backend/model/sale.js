@@ -18,10 +18,7 @@ const saleSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    month: {
-        type: String,
-        required: true,
-    },
+  
     category: {
         type: String,
         required: true,
