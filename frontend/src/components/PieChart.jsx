@@ -1,5 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 import { Pie } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -8,50 +7,32 @@ import {
   Legend,
 } from 'chart.js'; // Import the required elements
 
-import { StatisticsContext } from '../context/StatisticsContext';
-
 // Register the elements
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const PieChart = () => {
-  const [pieData, setPieData] = useState(null);
-  const { month } = useContext(StatisticsContext);
-
-  useEffect(() => {
-    axios
-      .get(`http://localhost:4000/api/v1/pie-chart?month=${month}`)
-      .then((response) => {
-        const data = response.data;
-        console.log(data)
-        setPieData({
-          labels: data.map((item) => item.category),
-          datasets: [
-            {
-              data: data.map((item) => item.items),
-              backgroundColor: [
-                '#f87171',
-                '#60a5fa',
-                '#34d399',
-                '#fbbf24',
-                '#a78bfa',
-              ],
-              hoverBackgroundColor: [
-                '#fca5a5',
-                '#93c5fd',
-                '#6ee7b7',
-                '#fde047',
-                '#c4b5fd',
-              ],
-            },
-          ],
-        });
-      })
-      .catch((error) => {
-        console.error('Error fetching pie chart data', error);
-      });
-  }, [month]);
-
-  if (!pieData) return <div>Loading pie chart...</div>;
+  const [pieData, setPieData] = useState({
+    labels: ['Electronics', 'Clothing', 'Home & Kitchen', 'Books', 'Beauty'],
+    datasets: [
+      {
+        data: [25, 15, 30, 10, 20], // Example dummy data
+        backgroundColor: [
+          '#f87171',
+          '#60a5fa',
+          '#34d399',
+          '#fbbf24',
+          '#a78bfa',
+        ],
+        hoverBackgroundColor: [
+          '#fca5a5',
+          '#93c5fd',
+          '#6ee7b7',
+          '#fde047',
+          '#c4b5fd',
+        ],
+      },
+    ],
+  });
 
   return (
     <div className="p-6 bg-white rounded-lg shadow-md">

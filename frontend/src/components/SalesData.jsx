@@ -44,7 +44,7 @@ const SalesData = () => {
         value={month || ""}
         onChange={handleMonthChange}
         required
-        style={{ zIndex: 10 }} 
+        style={{ zIndex: 10, color: 'black' }}  // Set dropdown text color to black
         className="dropdown" 
       >
         <option value="">--Select Month--</option>
@@ -63,12 +63,10 @@ const SalesData = () => {
         <option value="December">December</option>
       </select>
 
-      <div className="container mx-auto  mt-10 ml-20 p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      
-      {sales.map((item) => (
-      <ItemBox key={item.id} item={item} />
-    ))}
-        
+      <div className="container mx-auto mt-10 ml-20 p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {sales.map((item) => (
+          <ItemBox key={item.id} item={item} />
+        ))}
       </div>
     </div>
   );

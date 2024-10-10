@@ -27,22 +27,26 @@ const initializeDatabase = async (req, res) => {
       throw new Error("Sales data is not an array");
     }
 
-    const sales = salesData.map((item) => ({
-      id: item.id,
-      title: item.title,
-      dateOfSale: new Date(item.dateOfSale),
-      image: item.image,
-      category: item.category,
-      description:item.description,
-      sold: item.sold,
-      price: item.price,
-    }));
-
+    const sales = salesData.map((item) => {
+      const dateOfSale = item.dateOfSale; // Define dateOfSale from item if it's part of the item structure
+    
+      return {
+        id: item.id,
+        title: item.title,
+        dateOfSale, // Use the defined dateOfSale variable
+        image: item.image,
+        category: item.category,
+        description: item.description,
+        sold: item.sold,
+        price: item.price,
+      };
+    });
+    
     await Sale.deleteMany({});
     await Sale.insertMany(sales);
 
     console.log("Database initialized successfully with sales data!");
-    console.log(sales)
+  
     res.status(200).json(sales);
   } catch (error) {
     console.error("Failed to fetch or initialize database:", error.message);

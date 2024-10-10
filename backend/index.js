@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const saleRoutes = require("./routes/seed.route");
+const statsRoute = require("./routes/stats.route");
 const connectDB = require("./database/db");
 const { initializeDatabase } = require('./components/saleController'); 
 require('dotenv').config();
@@ -21,6 +22,7 @@ const start = async () => {
         console.log("Database initialized successfully.");
 
         app.use("/api", saleRoutes);
+   
         
 
         app.listen(PORT, () => {

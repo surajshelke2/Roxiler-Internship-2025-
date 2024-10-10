@@ -1,29 +1,27 @@
 import React, { useContext, useEffect, useState } from 'react';
-import axios from 'axios';
 import { StatisticsContext } from '../context/StatisticsContext';
 
 const Statistics = () => {
   const [stats, setStats] = useState(null);
-  const { month } = useContext(StatisticsContext); 
+  const { month } = useContext(StatisticsContext);
 
+  // Dummy data to display
+  const dummyStats = {
+    totalAmount: 5000,
+    totalSoldItems: 120,
+    totalNotSoldItems: 30,
+  };
+
+  // Set the stats to dummy data on mount
   useEffect(() => {
-    if (month) {
-      axios.get(`http://localhost:4000/api/v1/statistics?month=${month}`)
-        .then((response) => {
-          setStats(response.data);
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.error('Error fetching statistics', error);
-        });
-    }
-  }, [month]);
+    setStats(dummyStats);
+  }, []);
 
   if (!stats) return <div>Loading...</div>;
 
   return (
-    <div className="p-4 bg-white rounded shadow">
-      <h2 className="text-2xl font-semibold mb-4">Statistics</h2>
+    <div className="p-8 bg-white rounded-lg mt-24 shadow-md">
+      <h2 className="text-3xl font-bold mb-6">Statistics</h2>
       <ul className="list-disc list-inside">
         {Object.keys(stats).map((key) => (
           <li key={key}>

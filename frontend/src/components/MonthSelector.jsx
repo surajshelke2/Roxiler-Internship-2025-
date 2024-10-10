@@ -27,10 +27,10 @@ const MonthSelector = () => {
     <div className="mb-4">
       <label className="block text-lg mt-32 font-semibold mb-2">Select Year:</label>
       <select value={selectedYear} onChange={handleYearChange} className="border rounded p-2 mb-4">
+        <option value="2021">2021</option>
         <option value="2022">2022</option>
-        <option value="2023">2023</option>
-        <option value="2024">2024</option>
-        <option value="2025">2025</option>
+        
+        
       </select>
 
       <label className="block text-lg mt-2 font-semibold mb-2">Select Month:</label>
